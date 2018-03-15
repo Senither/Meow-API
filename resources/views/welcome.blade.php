@@ -39,7 +39,10 @@
          
                         <div class="card-body"> 
                             <p>Anyone can use the API up to up to 10 times every minute, if you'd like to use the API more often then that, shoot me a message on Discord at <a href="https://discord.gg/ZgPUtcs">https://discord.gg/ZgPUtcs</a> or at <code>Senither#0001</code> to get an API token with a raised limit.</p>
+
                             <p>You can see your request limit and amout of request you have left by checking for the <code>X-RateLimit-Limit</code> and the <code>X-RateLimit-Remaining</code> headers.</p>
+
+                            <p>Wanna add a cat picture to the API? Join the <a href="https://discord.gg/ZgPUtcs">Discord Server</a> and upload your image to the <a href="https://discord.gg/ZgPUtcs">#meow</a> channel to get it added!</p>
                         </div> 
                     </div> 
                 </div> 
