@@ -42,7 +42,7 @@
 
                             <p>You can see your request limit and amout of request you have left by checking for the <code>X-RateLimit-Limit</code> and the <code>X-RateLimit-Remaining</code> headers.</p>
 
-                            <p>Wanna add a cat picture to the API? Join the <a href="https://discord.gg/ZgPUtcs">Discord Server</a> and upload your image to the <a href="https://discord.gg/ZgPUtcs">#meow</a> channel to get it added!</p>
+                            <p>Currently serving <code>{{ number_format($total) }}</code> cat pictures to the world-wide-web. Wanna add a cat picture to the API? Join the <a href="https://discord.gg/ZgPUtcs">Discord Server</a> and upload your image to the <a href="https://discord.gg/ZgPUtcs">#meow</a> channel to get it added!</p>
                         </div> 
                     </div> 
                 </div> 
