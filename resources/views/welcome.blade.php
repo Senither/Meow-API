@@ -92,6 +92,30 @@
                     </div> 
                 </div> 
             </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row justify-content-center"> 
+                <div class="col-md-8"> 
+                    <div class="card"> 
+                        <div class="card-header">
+                            Image - Get from type
+                            <a href="{{ env('APP_SITE') }}v1/type/{{ $image->type }}" class="btn btn-info btn-sm try">Try it out</a>
+                        </div> 
+         
+                        <div class="card-body"> 
+                            <p>Gets up to 10 images of the given type per page, image types are things like <code>jpg</code>, <code>png</code>, and <code>gif</code>.</p>
+
+                            <p><span class="btn btn-sm btn-success">GET</span> <code>/v1/type/:type</code></p>
+
+                            <p><strong>Example:</strong></p>
+                            <p>
+                                <code>{{ env('APP_SITE') }}v1/type/some-file-type</code>
+                            </p>
+                        </div> 
+                    </div> 
+                </div> 
+            </div>
         </div> 
     </div>
 </body>
