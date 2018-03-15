@@ -12,7 +12,7 @@ class Image extends Model
      * @var array
      */
     protected $fillable = [
-        'description', 'type', 'file',
+        'type', 'file',
     ];
 
     /**
