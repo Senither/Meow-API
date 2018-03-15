@@ -32,6 +32,13 @@ class Image extends Model
     ];
 
     /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
      * Geneates the full image url.
      *
      * @return  string
