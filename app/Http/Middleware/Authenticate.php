@@ -30,6 +30,20 @@ class Authenticate
     protected $auth;
 
     /**
+     * The amount of minutes the rate limit should be decaying for.
+     *
+     * @var integer
+     */
+    protected $decayMinutes = 1;
+
+    /**
+     * The amount of requests that is allowed within the decay time.
+     *
+     * @var integer
+     */
+    protected $maxAttempts = 10;
+
+    /**
      * Create a new middleware instance.
      *
      * @param  \Illuminate\Contracts\Auth\Factory  $auth
@@ -51,26 +65,23 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $decayMinutes = 1;
-        $maxAttempts = 5;
-
         $key = $this->resolveRequestSignature($request);
 
         if (! $this->auth->guard($guard)->guest()) {
-            $maxAttempts = $request->user()->maxAttempts;
+            $this->maxAttempts = $request->user()->maxAttempts;
         }
 
-        if ($this->limiter->tooManyAttempts($key, $maxAttempts)) {
-            return $this->buildTooManyAttempts($key, $maxAttempts);
+        if ($this->limiter->tooManyAttempts($key, $this->maxAttempts)) {
+            return $this->buildTooManyAttempts($key, $this->maxAttempts);
         }
 
-        $this->limiter->hit($key, $decayMinutes);
+        $this->limiter->hit($key, $this->decayMinutes);
         
         $response = $next($request);
         
         return $this->addHeaders(
-            $response, $maxAttempts,
-            $this->calculateRemainingAttempts($key, $maxAttempts)
+            $response, $this->maxAttempts,
+            $this->calculateRemainingAttempts($key, $this->maxAttempts)
         );
     }
 
