@@ -24,6 +24,9 @@
         .resource {
             margin-right: 12px;
         }
+        .row:last-child {
+            margin-bottom: 60px;
+        }
     </style>
 </head>
 <body>
