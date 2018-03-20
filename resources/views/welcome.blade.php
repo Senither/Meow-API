@@ -21,6 +21,9 @@
         a.try {
             float: right;
         }
+        .resource {
+            margin-right: 12px;
+        }
     </style>
 </head>
 <body>
@@ -38,9 +41,9 @@
                         </div> 
          
                         <div class="card-body"> 
-                            <p>Anyone can use the API up to 10 times every minute, if you'd like to use the API more often then that, shoot me a message on Discord at <a href="https://discord.gg/ZgPUtcs">https://discord.gg/ZgPUtcs</a> or at <code>Senither#0001</code> to get an API token with a raised limit.</p>
+                            <p>{{ env('APP_NAME') }} is a free and <a href="https://github.com/Senither/Meow-API">open-source</a> API created by <a href="https://github.com/Senither">Alexis Tan</a>, the API uses a resource-to-cost rate limit, with unauthorized requested getting 60 resources per minute, different API endpoints will cost more resources than others, you can see what an endpoint costs below. If you'd like to use the API with more resources available, shoot me a message on Discord at <a href="https://discord.gg/ZgPUtcs">https://discord.gg/ZgPUtcs</a> or at <code>Senither#0001</code> to get an API token with a raised limit.</p>
 
-                            <p>You can see your request limit and amout of request you have left by checking for the <code>X-RateLimit-Limit</code> and the <code>X-RateLimit-Remaining</code> headers.</p>
+                            <p>You can see your request limit and amout of requests you have left by checking for the <code>X-RateLimit-Limit</code> and the <code>X-RateLimit-Remaining</code> headers.</p>
 
                             <p>Currently serving <code>{{ number_format($total) }}</code> cat pictures to the world-wide-web. Wanna add a cat picture to the API? Join the <a href="https://discord.gg/ZgPUtcs">Discord Server</a> and upload your image to the <a href="https://discord.gg/ZgPUtcs">#meow</a> channel to get it added!</p>
                         </div> 
@@ -56,13 +59,13 @@
                         <div class="card-header">
                             Image - Random
                             <a href="{{ env('APP_SITE') }}v1/random" class="btn btn-info btn-sm try">Try it out</a>
+                            <span class="btn btn-sm btn-primary resource float-right">Costs <strong>5</strong> Resources</span>
                         </div> 
          
                         <div class="card-body"> 
                             <p>Gets a random cat image from the API.</p>
 
                             <p><span class="btn btn-sm btn-success">GET</span> <code>/v1/random</code></p>
-
                             <p><strong>Example:</strong></p>
                             <p>
                                 <code>{{ env('APP_SITE') }}v1/random</code>
@@ -80,6 +83,7 @@
                         <div class="card-header">
                             Image - Show image
                             <a href="{{ env('APP_SITE') }}v1/image/{{ $image->file }}" class="btn btn-info btn-sm try">Try it out</a>
+                            <span class="btn btn-sm btn-primary resource float-right">Costs <strong>1</strong> Resource</span>
                         </div> 
          
                         <div class="card-body"> 
@@ -104,6 +108,7 @@
                         <div class="card-header">
                             Image - Get from type
                             <a href="{{ env('APP_SITE') }}v1/type/{{ $image->type }}" class="btn btn-info btn-sm try">Try it out</a>
+                            <span class="btn btn-sm btn-primary resource float-right">Costs <strong>20</strong> Resources</span>
                         </div> 
          
                         <div class="card-body"> 

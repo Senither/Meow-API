@@ -45,7 +45,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if ($e->getStatusCode() === 404) {
+        if (method_exists($e, 'getStatusCode') && $e->getStatusCode() === 404) {
             return response()->json([
                 'status' => 404,
                 'reason' => 'Invalid route, read the documentation on the home page (' . env('APP_SITE') . ')',

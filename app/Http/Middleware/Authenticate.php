@@ -37,11 +37,11 @@ class Authenticate
     protected $decayMinutes = 1;
 
     /**
-     * The amount of requests that is allowed within the decay time.
+     * The default cost a user can consume within the decayed time before getting rate limited.
      *
      * @var integer
      */
-    protected $maxAttempts = 10;
+    protected $maxAttempts = 60;
 
     /**
      * Create a new middleware instance.
@@ -63,11 +63,11 @@ class Authenticate
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next, $cost = 1)
     {
         $key = $this->resolveRequestSignature($request);
 
-        if (! $this->auth->guard($guard)->guest()) {
+        if (! $this->auth->guard(null)->guest()) {
             $this->maxAttempts = $request->user()->maxAttempts;
         }
 
@@ -75,7 +75,9 @@ class Authenticate
             return $this->buildTooManyAttempts($key, $this->maxAttempts);
         }
 
-        $this->limiter->hit($key, $this->decayMinutes);
+        for ($i = $cost - 1; $i >= 0; $i--) { 
+            $this->limiter->hit($key, $this->decayMinutes);
+        }
         
         $response = $next($request);
         

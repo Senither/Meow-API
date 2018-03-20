@@ -24,8 +24,19 @@ $router->get('/', function () use ($router) {
     return view('welcome', compact('image', 'total'));
 });
 
-$router->group(['prefix' => 'v1', 'middleware' => 'auth'], function () use ($router) {
-    $router->get('random', 'ImageController@random');
-    $router->get('image/{image}', 'ImageController@show');
-    $router->get('type/{type}', 'ImageController@type');
+$router->group(['prefix' => 'v1'], function () use ($router) {
+    $router->get('random', [
+        'middleware' => 'auth:5',
+        'uses' => 'ImageController@random'
+    ]);
+
+    $router->get('image/{image}', [
+        'middleware' => 'auth:1',
+        'uses' => 'ImageController@show'
+    ]);
+
+    $router->get('type/{type}', [
+        'middleware' => 'auth:20',
+        'uses' => 'ImageController@type'
+    ]);
 });
