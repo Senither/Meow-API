@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Log;
 use Closure;
 use RuntimeException;
 use Illuminate\Support\Str;
@@ -72,6 +73,8 @@ class Authenticate
         }
 
         if ($this->limiter->tooManyAttempts($key, $this->maxAttempts)) {
+            $this->incrementTooManyAttemptsFor($key);
+
             return $this->buildTooManyAttempts($key, $this->maxAttempts);
         }
 
@@ -97,13 +100,12 @@ class Authenticate
     protected function resolveRequestSignature($request)
     {
         if ($user = $request->user()) {
-            return sha1($user->getAuthIdentifier());
+            return 'token|' . $user->token;
         }
 
         if ($route = $request->route()) {
             return $request->method() .
                 '|' . $request->server('SERVER_NAME') .
-                '|' . $request->path() .
                 '|' . $request->ip();
         }
 
@@ -200,5 +202,21 @@ class Authenticate
         }
 
         return 0;
+    }
+
+    /**
+     * Increments the too-many-attempts value for the given key if it
+     * exists, or creates it in the database.
+     * 
+     * @param  string  $key
+     */
+    protected function incrementTooManyAttemptsFor($key)
+    {
+        $log = Log::firstOrNew([
+            'agent' => $key
+        ]);
+
+        $log->attempts = $log->attempts == null ? 1 : $log->attempts + 1;
+        $log->save();
     }
 }
