@@ -53,7 +53,7 @@ class SyncImagesCommand extends Command
 
         foreach ($finder as $file) {
             $parts     = explode('.', $file->getRelativePathname());
-            $extension = end($parts);
+            $extension = mb_strtolower(end($parts));
 
             if (! in_array($extension, ['jpg', 'png', 'gif'])) {
                 continue;
@@ -63,6 +63,7 @@ class SyncImagesCommand extends Command
 
             $images[] = [
                 'type' => $extension,
+                'size' => filesize($file),
                 'file' => implode('.', $parts)
             ];
         }
