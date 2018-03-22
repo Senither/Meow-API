@@ -7,6 +7,31 @@ use App\Image;
 class ImageController extends Controller
 {
     /**
+     * Displays the welcome page, with a random image.
+     *
+     * @return  Illuminate\Contracts\Routing\ResponseFactory
+     */
+    public function index()
+    {
+        $image = Image::inRandomOrder()->limit(1)->first();
+        
+        // Caches the total amount of images for 24 hours
+        $total = app('cache')->remember('total', 60 * 24, function () {
+            return Image::count();
+        });
+
+        $size = app('cache')->remember('size', 60 * 24, function () {
+            $size = Image::sum('size');
+            $base = log($size) / log(1024);
+            $suffix = array('', ' KB', ' MB', ' GB', ' TB')[floor($base)];
+
+            return number_format(pow(1024, $base - floor($base)), 2) . $suffix;
+        });
+
+        return view('welcome', compact('image', 'total', 'size'));
+    }
+
+    /**
      * Gets a random image from the database.
      *
      * @return  Illuminate\Contracts\Routing\ResponseFactory
@@ -31,8 +56,8 @@ class ImageController extends Controller
     /**
      * Gets up to 10 images that fits the given type, if there is
      * more than 10 images, the results will be paginated.
-     * 
-     * @param  string  $type 
+     *
+     * @param  string  $type
      * @return Illuminate\Contracts\Routing\ResponseFactory
      */
     public function type($type)

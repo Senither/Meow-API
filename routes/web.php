@@ -1,7 +1,5 @@
 <?php
 
-use App\Image;
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,16 +11,7 @@ use App\Image;
 |
 */
 
-$router->get('/', function () use ($router) {
-    $image = Image::inRandomOrder()->limit(1)->first();
-    
-    // Caches the total amount of images for 24 hours
-    $total = app('cache')->remember('total', 60 * 24, function () {
-        return Image::count();
-    });
-
-    return view('welcome', compact('image', 'total'));
-});
+$router->get('/', 'ImageController@index');
 
 $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->get('random', [

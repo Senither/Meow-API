@@ -35,6 +35,7 @@ class SyncImagesCommand extends Command
         $this->syncImagesToDatabase($images);
 
         app('cache')->forget('total');
+        app('cache')->forget('size');
     }
 
     /**
