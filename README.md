@@ -1,3 +1,5 @@
+[![forthebadge](https://forthebadge.com/images/badges/contains-cat-gifs.svg)](https://forthebadge.com)
+
 # Meow API
 
 The Meow API is a simple cat API used by some of my own projects, most recently [AvaIre](https://github.com/avaire/avaire) since the original API used by the project ran into a lot of issues.
