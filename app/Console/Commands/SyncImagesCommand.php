@@ -14,6 +14,7 @@ class SyncImagesCommand extends Command
      * @var string
      */
     protected $signature = 'image:sync';
+
     /**
      * The console command description.
      *

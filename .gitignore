@@ -1,5 +1,15 @@
+# Composer & IDE files
 /vendor
 /.idea
+
+# Laravel Homestead
 Homestead.json
 Homestead.yaml
+
+# Laravel Config
 .env
+
+# Image files
+!public/c/.gitkeep
+!public/c/index.php
+public/c/
