@@ -44,7 +44,7 @@
                         </div> 
          
                         <div class="card-body"> 
-                            <p>{{ env('APP_NAME') }} is a free and <a href="https://github.com/Senither/Meow-API">open-source</a> API created by <a href="https://github.com/Senither">Alexis Tan</a>, the API uses a resource-to-cost rate limit, with unauthorized requested getting 60 resources per minute, different API endpoints will cost more resources than others, you can see what an endpoint costs below. If you'd like to use the API with more resources available, shoot me a message on Discord at <a href="https://discord.gg/ZgPUtcs">https://discord.gg/ZgPUtcs</a> or at <code>Senither#0001</code> to get an API token with a raised limit.</p>
+                            <p>{{ env('APP_NAME') }} is a free and <a href="https://github.com/Senither/Meow-API">open-source</a> API created by <a href="https://github.com/Senither">Alexis Tan</a>, the API uses a resource-to-cost rate limit, with unauthorized requested getting 100 resources per minute, different API endpoints will cost more resources than others, you can see what an endpoint costs below. If you'd like to use the API with more resources available, shoot me a message on Discord at <a href="https://discord.gg/ZgPUtcs">https://discord.gg/ZgPUtcs</a> or at <code>Senither#0001</code> to get an API token with a raised limit.</p>
 
                             <p>You can see your request limit and amout of requests you have left by checking for the <code>X-RateLimit-Limit</code> and the <code>X-RateLimit-Remaining</code> headers.</p>
 

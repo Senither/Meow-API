@@ -42,7 +42,7 @@ class Authenticate
      *
      * @var integer
      */
-    protected $maxAttempts = 60;
+    protected $maxAttempts = 100;
 
     /**
      * Create a new middleware instance.
