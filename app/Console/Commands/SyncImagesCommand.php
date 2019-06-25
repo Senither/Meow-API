@@ -57,7 +57,7 @@ class SyncImagesCommand extends Command
             $parts     = explode('.', $file->getRelativePathname());
             $extension = mb_strtolower(end($parts));
 
-            if (! in_array($extension, ['jpg', 'png', 'gif', 'gifv'])) {
+            if (! in_array($extension, ['jpg', 'png', 'gif', 'gifv', 'mp4'])) {
                 continue;
             }
 
