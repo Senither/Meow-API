@@ -4,13 +4,11 @@ namespace App\Http\Middleware;
 
 use App\Log;
 use Closure;
-use RuntimeException;
-use Illuminate\Support\Str;
 use Illuminate\Cache\RateLimiter;
-use Illuminate\Support\InteractsWithTime;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Support\InteractsWithTime;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Exceptions\ThrottleRequestsException;
 
 class Authenticate
 {
@@ -68,7 +66,7 @@ class Authenticate
     {
         $key = $this->resolveRequestSignature($request);
 
-        if (! $this->auth->guard(null)->guest()) {
+        if (!$this->auth->guard(null)->guest()) {
             $this->maxAttempts = $request->user()->maxAttempts;
         }
 
@@ -78,14 +76,15 @@ class Authenticate
             return $this->buildTooManyAttempts($key, $this->maxAttempts);
         }
 
-        for ($i = $cost - 1; $i >= 0; $i--) { 
+        for ($i = $cost - 1; $i >= 0; $i--) {
             $this->limiter->hit($key, $this->decayMinutes);
         }
-        
+
         $response = $next($request);
-        
+
         return $this->addHeaders(
-            $response, $this->maxAttempts,
+            $response,
+            $this->maxAttempts,
             $this->calculateRemainingAttempts($key, $this->maxAttempts)
         );
     }
@@ -179,7 +178,7 @@ class Authenticate
             'X-RateLimit-Remaining' => $remainingAttempts,
         ];
 
-        if (! is_null($retryAfter)) {
+        if (!is_null($retryAfter)) {
             $headers['Retry-After'] = $retryAfter;
             $headers['X-RateLimit-Reset'] = $this->availableAt($retryAfter);
         }
@@ -207,13 +206,13 @@ class Authenticate
     /**
      * Increments the too-many-attempts value for the given key if it
      * exists, or creates it in the database.
-     * 
+     *
      * @param  string  $key
      */
     protected function incrementTooManyAttemptsFor($key)
     {
         $log = Log::firstOrNew([
-            'agent' => $key
+            'agent' => $key,
         ]);
 
         $log->attempts = $log->attempts == null ? 1 : $log->attempts + 1;

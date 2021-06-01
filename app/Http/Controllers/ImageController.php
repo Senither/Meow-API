@@ -14,7 +14,7 @@ class ImageController extends Controller
     public function index()
     {
         $image = Image::inRandomOrder()->limit(1)->first();
-        
+
         // Caches the total amount of images for 24 hours
         $total = app('cache')->remember('total', 60 * 24, function () {
             return Image::count();
@@ -78,7 +78,7 @@ class ImageController extends Controller
                 'prev_page_url'  => $images['prev_page_url'],
                 'to'             => $images['to'],
                 'total'          => $images['total'],
-            ]
+            ],
         ], 200);
     }
 
@@ -93,13 +93,13 @@ class ImageController extends Controller
         if ($image == null) {
             return response()->json([
                 'status' => 404,
-                'reason' => 'Image was not found'
+                'reason' => 'Image was not found',
             ], 404);
         }
 
         return response()->json([
             'status' => 200,
-            'data'   => $image
+            'data'   => $image,
         ], 200);
     }
 }
